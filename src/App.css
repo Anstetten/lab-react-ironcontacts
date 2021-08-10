@@ -5,9 +5,19 @@ body{
 }
 
 .ContactsWrapper{
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .contactTable img{
  width:100px;
+}
+button{
+  margin: 0px 3px;
+}
+button:hover{
+  background-color: lightskyblue;
+}
+
+.selected{
+  background-color: lightgreen;
 }

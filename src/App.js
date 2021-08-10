@@ -9,6 +9,8 @@ export class App extends Component {
   constructor(props){
     super(props);
     this.originalContacts=contacts;
+    this.SortedByName=false;
+    this.SortedByPop=false;
     this.state ={
       contactList:this.originalContacts.slice(0,5),
     }
@@ -33,16 +35,44 @@ export class App extends Component {
 
   }
 
+  sortList = (criteria)=>{
+
+    const copy = [...this.state.contactList];
+    
+    if ( criteria==="Name" && this.SortedByName===false ){
+      
+      copy.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+      this.SortedByName=true;
+      this.SortedByPop=false;
+    }
+    
+
+    else if(criteria==="Popularity" && this.SortedByPop===false )
+    {
+      copy.sort((a,b)=>{
+        return b.popularity-a.popularity;
+      })
+      this.SortedByName=false;
+      this.SortedByPop=true;
+    }    
+
+      this.setState({contactList:copy});
+
+  }
+
+
+
+
   render(){
     return (
       <div className="ContactsWrapper">
+        <h1>Iron Contacts</h1>
         <button onClick={this.addRandom}>Add Random Contact</button>
+        <button className={this.SortedByName? "selected" : ""} onClick={()=>{this.sortList('Name')}}>Sort by Name</button>
+        <button className={this.SortedByPop? "selected" : ""}onClick={()=>{this.sortList('Popularity')}}>Sort by Popularity</button>
         <table className="contactTable">
-          <thead>
-            <tr>
-              <th colSpan="3">IronContacts</th>
-            </tr>
-          </thead>
           <tbody>
             <tr>
               <td >Picture</td>
