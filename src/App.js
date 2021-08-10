@@ -83,9 +83,12 @@ export class App extends Component {
     return (
       <div className="ContactsWrapper">
         <h1>Iron Contacts</h1>
+        <div className="buttonWrapper">
         <button onClick={this.addRandom}>Add Random Contact</button>
         <button className={this.SortedByName? "selected" : ""} onClick={()=>{this.sortList('Name')}}>Sort by Name</button>
         <button className={this.SortedByPop? "selected" : ""}onClick={()=>{this.sortList('Popularity')}}>Sort by Popularity</button>
+        </div>
+        
         <table className="contactTable">
           <tbody>
             <tr>

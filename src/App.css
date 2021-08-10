@@ -6,11 +6,25 @@ body{
 
 .ContactsWrapper{
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  padding: 3px;
+  border-radius: 5px;
 }
 
 .contactTable img{
  width:100px;
+
 }
+
+.contactTable {
+  border-spacing: 0px 5px;
+ 
+ }
+
 button{
   margin: 0px 3px;
 }
@@ -20,4 +34,12 @@ button:hover{
 
 .selected{
   background-color: lightgreen;
+}
+
+.contactTable td{
+
+}
+
+.contactTable tr{
+  
 }
