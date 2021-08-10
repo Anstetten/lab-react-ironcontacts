@@ -25,21 +25,25 @@ export class App extends Component {
       if (!this.state.contactList.some((contact)=>{
         return contact.name===randomContact.name;
       })){
-        console.log("hi");
         let intermediateArray = [...this.state.contactList];
         intermediateArray.push(randomContact);
         succes=true;
-        this.setState({contactList:intermediateArray});
+        this.setState({contactList:intermediateArray},()=>{
+          if(this.SortedByName ===true ||this.SortedByPop===true){
+            let criteria = this.SortedByName? "Name" : "Popularity";
+            this.sortList(criteria);
+          }
+        });
       }
     }
 
   }
 
   sortList = (criteria)=>{
-
+    console.log("Iam called")
     const copy = [...this.state.contactList];
     
-    if ( criteria==="Name" && this.SortedByName===false ){
+    if ( criteria==="Name"){
       
       copy.sort((a, b) => {
         return a.name.localeCompare(b.name);
@@ -49,7 +53,7 @@ export class App extends Component {
     }
     
 
-    else if(criteria==="Popularity" && this.SortedByPop===false )
+    else if(criteria==="Popularity")
     {
       copy.sort((a,b)=>{
         return b.popularity-a.popularity;
@@ -62,6 +66,16 @@ export class App extends Component {
 
   }
 
+    deleteContact = (id)=>{
+
+      let newList = this.state.contactList.filter((contact)=>{
+        if (contact.id !==id){
+            return contact;
+        }
+      })
+      console.log(newList);
+      this.setState({contactList:newList});
+    }
 
 
 
@@ -78,14 +92,16 @@ export class App extends Component {
               <td >Picture</td>
               <td >Name</td>
               <td >Popularity</td>
+              <td >Action</td>
             </tr>
   
             {this.state.contactList.map((contact)=>{
-              return <tr key={contact.id}>
+              return (<tr key={contact.id}>
               <td ><img src={contact.pictureUrl} alt='image'></img></td>
               <td >{contact.name}</td>
               <td >{contact.popularity.toFixed(2)}</td>
-            </tr>
+              <td ><button onClick={()=>{this.deleteContact(contact.id)}}>Delete</button></td>
+            </tr>)
             })}
   
           </tbody>
